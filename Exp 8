@@ -1,0 +1,25 @@
+import pandas as pd
+
+# Mock sales_data for demonstration
+data = {
+    'Region': ['East', 'West', 'East', 'Central', 'West', 'Central', 'East', 'West', 'East'],
+    'Manager': ['Martha', 'Douglas', 'Martha', 'Hermann', 'Douglas', 'Hermann', 'Martha', 'Douglas', 'Martha'],
+    'SalesMan': ['Alexander', 'Michael', 'David', 'Luis', 'John', 'Luis', 'Alexander', 'Michael', 'David'],
+    'Item': ['Television', 'Home Theater', 'Television', 'Desk', 'Home Theater', 'Desk', 'Cell Phone', 'Cell Phone', 'Desk'],
+    'Units_Sold': [95, 50, 36, 87, 27, 45, 60, 20, 10],
+    'Sale_Amount': [1198.0, 500.0, 453.6, 108.75, 270.0, 56.25, 225.0, 75.0, 12.5]
+}
+
+sales_data = pd.DataFrame(data)
+print("Original Sales Data:\n", sales_data, "\n" + "-"*50)
+
+# Create a pivot table to sum the units sold per item
+pivot_units_sold = pd.pivot_table(
+    sales_data, 
+    index='Item', 
+    values='Units_Sold', 
+    aggfunc='sum'
+)
+
+print("Item-wise Units Sold:")
+print(pivot_units_sold)
