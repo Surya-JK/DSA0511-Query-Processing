@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+
+np.random.seed(42) 
+df = pd.DataFrame(np.random.randn(10, 4), columns=['A', 'B', 'C', 'D'])
+
+print("Original DataFrame:")
+print(df)
+print("\n" + "="*50 + "\n")
+
+def color_negative_red(val):
+    """
+    Takes a scalar and returns a string with
+    the css property 'color: red' for negative
+    strings, black otherwise.
+    """
+    color = 'red' if val < 0 else 'black'
+    return f'color: {color}'
+
+styled_df = df.style.map(color_negative_red)
+
+styled_df
