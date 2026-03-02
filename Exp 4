@@ -1,0 +1,38 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Create a DataFrame with sample historical stock data for Alphabet Inc. (GOOGL)
+data = {
+    'Date': pd.to_datetime([
+        '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05',
+        '2024-01-08', '2024-01-09', '2024-01-10', '2024-01-11'
+    ]),
+    'Close_Price': [138.17, 138.92, 136.39, 135.73, 138.84, 140.95, 142.28, 141.80]
+}
+
+# Set the 'Date' column as the index, which makes time-series filtering much easier
+stock_df = pd.DataFrame(data).set_index('Date')
+
+# 2. Define the start and end dates for filtering
+start_date = '2024-01-04'
+end_date = '2024-01-10'
+
+# Use .loc to filter the DataFrame between the two specific dates
+filtered_df = stock_df.loc[start_date:end_date]
+
+# 3. Create the line plot
+# The .plot() method in Pandas is a convenient wrapper around matplotlib
+filtered_df['Close_Price'].plot(
+    kind='line',
+    title='Alphabet Inc. (GOOGL) Stock Prices',
+    ylabel='Closing Price (USD)',
+    xlabel='Date',
+    marker='o', # Adds dots to the data points
+    figsize=(10, 5) # Sets the width and height of the figure
+)
+
+# Optional: Add a grid for better readability
+plt.grid(True)
+
+# Display the plot
+plt.show()
