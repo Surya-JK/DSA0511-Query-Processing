@@ -1,0 +1,46 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Create a DataFrame with sample historical trading volume data for Alphabet Inc.
+data = {
+    'Date': pd.to_datetime([
+        '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05',
+        '2024-01-08', '2024-01-09', '2024-01-10', '2024-01-11'
+    ]),
+    'Volume': [16327400, 16618200, 20901500, 19208900, 17741200, 14714900, 13735000, 14500000]
+}
+
+# Set the 'Date' column as the index for time-series filtering
+stock_df = pd.DataFrame(data).set_index('Date')
+
+# 2. Define the start and end dates for filtering
+start_date = '2024-01-04'
+end_date = '2024-01-10'
+
+# Filter the DataFrame between the two specific dates
+filtered_df = stock_df.loc[start_date:end_date]
+
+# Format the dates as strings so they display cleanly on the categorical bar x-axis
+filtered_df.index = filtered_df.index.strftime('%Y-%m-%d')
+
+# 3. Create the bar plot
+ax = filtered_df['Volume'].plot(
+    kind='bar',
+    color='skyblue',
+    edgecolor='black',
+    figsize=(10, 6)
+)
+
+# Add titles and labels for readability
+plt.title('Alphabet Inc. (GOOGL) Trading Volume (Jan 04 - Jan 10, 2024)')
+plt.xlabel('Date')
+plt.ylabel('Trading Volume (Shares)')
+
+# Rotate the x-axis dates slightly so they don't overlap
+plt.xticks(rotation=45)
+
+# Automatically adjust the plot layout so elements aren't cut off
+plt.tight_layout()
+
+# Display the plot
+plt.show()
